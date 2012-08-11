@@ -4,10 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using SharpDX.Direct3D;
+using SharpDX.Direct3D11;
+
 namespace Defenetron {
     class GameApp:Form {
-        GameApp() {
+        private Device device;
 
+        GameApp() {
+            device = new Device(DriverType.Hardware);
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            //device.
         }
 
         static void Main(string[] args) {
