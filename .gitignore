@@ -12,3 +12,7 @@ TestResults
 *.suo
 Release
 Debug
+
+#ReSharper stuff
+*.ReSharper
+_ReSharper.*
