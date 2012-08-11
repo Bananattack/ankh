@@ -102,6 +102,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\MessageLoop.cs" />
     <Compile Include="src\Main.cs">
       <SubType>Form</SubType>
     </Compile>
