@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Defenetron.src {
     class GameApp {
-        static void Main(string[] args) {
-            return;
+        static int Main(string[] args) {
+            return 0;
         }
     }
 }
