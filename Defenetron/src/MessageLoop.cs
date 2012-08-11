@@ -40,11 +40,11 @@ namespace Defenetron
             }
         }
 
-        private MainLoop _loopDelagate;
+        private MainLoop _loopDelegate;
 
         public void Run(Form form, MainLoop loop)
         {
-            _loopDelagate = loop;
+            _loopDelegate = loop;
             Application.Idle += Application_Idle;
             Application.Run(form);
         }
@@ -53,7 +53,7 @@ namespace Defenetron
         {
             while(AppStillIdle)
             {
-                _loopDelagate();
+                _loopDelegate();
             }
         }
     }

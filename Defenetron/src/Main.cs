@@ -5,13 +5,17 @@ using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using Device = SharpDX.Direct3D11.Device;
+using Game = Defenetron.Game;
 
 namespace Defenetron {
     class GameApp:Form {
         private Device _device;
         private SwapChain _swapChain;
+        private Game _game;
 
         GameApp() {
+            _game = new Game();
+
             var scDesc = new SwapChainDescription
                              {
                                  BufferCount = 2,
@@ -41,7 +45,7 @@ namespace Defenetron {
 
         public void RenderLoop()
         {
-
+            _game.render();
         }
 
         static void Main(string[] args) {
