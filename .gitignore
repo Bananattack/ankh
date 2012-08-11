@@ -4,3 +4,11 @@ obj
 
 # mstest test results
 TestResults
+
+# visual studio stuff
+*.csproj.user
+*.pdb
+*.ncb
+*.suo
+Release
+Debug
