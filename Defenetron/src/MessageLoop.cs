@@ -38,20 +38,20 @@ namespace Defenetron
             }
         }
 
-        private Action _loopDelegate;
+        private Action loop;
 
         public void Run(Form form, Action loop)
         {
-            _loopDelegate = loop;
-            Application.Idle += Application_Idle;
+            this.loop = loop;
+            Application.Idle += ApplicationIdle;
             Application.Run(form);
         }
 
-        void Application_Idle(object sender, EventArgs e)
+        void ApplicationIdle(object sender, EventArgs e)
         {
             while(AppStillIdle)
             {
-                _loopDelegate();
+                loop();
             }
         }
     }

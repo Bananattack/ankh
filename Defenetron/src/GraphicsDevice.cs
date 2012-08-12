@@ -23,20 +23,20 @@ namespace Defenetron
             }
         }
 
-        private Form _form;
+        private Form form;
 
-        private const Format _format = Format.R8G8B8A8_UNorm;
+        private const Format format = Format.R8G8B8A8_UNorm;
 
-        private Device _device;
-        private SwapChain _swapChain;
+        private Device device;
+        private SwapChain swapChain;
 
-        private RenderTargetView _renderTargetView;
-        private DepthStencilView _depthStencilView;
-        private Texture2D _depthBuffer;
+        private RenderTargetView renderTargetView;
+        private DepthStencilView depthStencilView;
+        private Texture2D depthBuffer;
 
         public void CreateDevice(Form form)
         {
-            _form = form;
+            this.form = form;
             var scDesc = new SwapChainDescription
                              {
                                  BufferCount = 2,
@@ -46,7 +46,7 @@ namespace Defenetron
                                      form.ClientSize.Width,
                                      form.ClientSize.Height,
                                      new Rational(60, 1),
-                                     _format),
+                                     format),
                                  OutputHandle = form.Handle,
                                  SampleDescription = new SampleDescription(1, 0),
                                  SwapEffect = SwapEffect.Sequential,
@@ -60,12 +60,12 @@ namespace Defenetron
                 DeviceCreationFlags.None,
                 levels,
                 scDesc,
-                out _device,
-                out _swapChain);
+                out device,
+                out swapChain);
 
             ResetDevice();
 
-            _form.ResizeEnd += _form_ResizeEnd;
+            form.ResizeEnd += _form_ResizeEnd;
         }
 
         void _form_ResizeEnd(object sender, EventArgs e)
@@ -75,15 +75,15 @@ namespace Defenetron
         
         public void ResetDevice()
         {
-            SafeDispose(_renderTargetView);
-            SafeDispose(_depthStencilView);
-            SafeDispose(_depthBuffer);
+            SafeDispose(renderTargetView);
+            SafeDispose(depthStencilView);
+            SafeDispose(depthBuffer);
 
-            _swapChain.ResizeBuffers(2, _form.ClientSize.Width, _form.ClientSize.Height, _format, SwapChainFlags.AllowModeSwitch);
+            swapChain.ResizeBuffers(2, form.ClientSize.Width, form.ClientSize.Height, format, SwapChainFlags.AllowModeSwitch);
 
-            using (var resource = Resource.FromSwapChain<Texture2D>(_swapChain, 0))
+            using (var resource = Resource.FromSwapChain<Texture2D>(swapChain, 0))
             {
-                _renderTargetView = new RenderTargetView(_device, resource);
+                renderTargetView = new RenderTargetView(device, resource);
             }
 
             var depthDesc = new Texture2DDescription();
@@ -95,21 +95,21 @@ namespace Defenetron
             depthDesc.OptionFlags = ResourceOptionFlags.None;
             depthDesc.SampleDescription = new SampleDescription(1, 0);
             depthDesc.Usage = ResourceUsage.Default;
-            depthDesc.Width = _form.ClientSize.Width;
-            depthDesc.Height = _form.ClientSize.Height;
+            depthDesc.Width = form.ClientSize.Width;
+            depthDesc.Height = form.ClientSize.Height;
 
-            _depthBuffer = new Texture2D(_device, depthDesc);
-            _depthStencilView = new DepthStencilView(_device, _depthBuffer);
+            depthBuffer = new Texture2D(device, depthDesc);
+            depthStencilView = new DepthStencilView(device, depthBuffer);
         }
 
         public void ClearBackBuffer(Color4 color)
         {
-            var context = _device.ImmediateContext;
-            context.OutputMerger.SetTargets(_depthStencilView, _renderTargetView);
-            context.Rasterizer.SetViewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height, 0, 1);
-            context.ClearRenderTargetView(_renderTargetView, color);
+            var context = device.ImmediateContext;
+            context.OutputMerger.SetTargets(depthStencilView, renderTargetView);
+            context.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height, 0, 1);
+            context.ClearRenderTargetView(renderTargetView, color);
             context.ClearDepthStencilView(
-                _depthStencilView,
+                depthStencilView,
                 DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
         }
 
@@ -117,11 +117,9 @@ namespace Defenetron
             return new Color4(r, g, b, a);
         }
 
-
-
         public void Present()
         {
-            _swapChain.Present(1, PresentFlags.None);
+            swapChain.Present(1, PresentFlags.None);
         }
     }
 }
