@@ -4,19 +4,19 @@ namespace Defenetron
 {
     class AnkhApp : Form
     {
-        private readonly Game TheGame;
+        private readonly Game game;
 
         AnkhApp()
         {
             GraphicsDevice device = new GraphicsDevice();
             device.CreateDevice(this);
 
-            TheGame = new DefenetronGame(device);
+            game = new DefenetronGame(device);
         }
 
         public void RenderLoop()
         {
-            TheGame.Render();
+            game.Render();
 
         }
 

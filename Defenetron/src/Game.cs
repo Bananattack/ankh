@@ -2,15 +2,15 @@
 
 namespace Defenetron {
     public class Game {
-        private RenderHandler RenderEngine;
+        private RenderHandler renderEngine;
 
         public Game(GraphicsDevice device) {
-            RenderEngine = new RenderHandler(device);
+            renderEngine = new RenderHandler(device);
             this.Setup();
         }
 
         public void Render() {
-            RenderEngine.Render();
+            renderEngine.Render();
         }
 
         // to implement
