@@ -1,7 +1,4 @@
-﻿
-using System.Windows.Forms;
-using SharpDX;
-
+﻿using System.Windows.Forms;
 
 namespace Defenetron
 {
@@ -12,20 +9,16 @@ namespace Defenetron
 
         GameApp()
         {
-            _game = new Game();
+            GraphicsDevice device = new GraphicsDevice();
+            device.CreateDevice(this);
 
-            _graphicsDevice = new GraphicsDevice();
-            _graphicsDevice.CreateDevice(this);
+            _game = new DefenetronGame(device);
         }
 
         public void RenderLoop()
         {
             _game.render();
 
-            _graphicsDevice.ClearBackBuffer(
-                new Color4(123.0f / 255.0f, 160.0f / 255.0f, 183.0f / 255.0f, 1));
-
-            _graphicsDevice.Present();
         }
 
         static void Main(string[] args)
