@@ -5,7 +5,7 @@ namespace Defenetron {
     public class DefenetronGame:Game {
         public DefenetronGame(GraphicsDevice d):base(d) {}
 
-        public override void setup() {
+        public override void Setup() {
             // do stuff
         }
     }

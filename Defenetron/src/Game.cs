@@ -2,18 +2,19 @@
 
 namespace Defenetron {
     public class Game {
-        private RenderHandler _render;
+        private RenderHandler RenderEngine;
 
-        public Game(GraphicsDevice renderengine) {
-            _render = new RenderHandler(renderengine);
-            this.setup();
+        public Game(GraphicsDevice device) {
+            RenderEngine = new RenderHandler(device);
+            this.Setup();
         }
 
-        public void render() {
-            _render.render();
+        public void Render() {
+            RenderEngine.Render();
         }
 
         // to implement
-        public virtual void setup() { }
+        public virtual void Setup() { }
     }
 }
+

@@ -2,27 +2,27 @@
 
 namespace Defenetron
 {
-    class GameApp : Form
+    class AnkhApp : Form
     {
-        private readonly Game _game;
+        private readonly Game TheGame;
 
-        GameApp()
+        AnkhApp()
         {
             GraphicsDevice device = new GraphicsDevice();
             device.CreateDevice(this);
 
-            _game = new DefenetronGame(device);
+            TheGame = new DefenetronGame(device);
         }
 
         public void RenderLoop()
         {
-            _game.render();
+            TheGame.Render();
 
         }
 
         static void Main(string[] args)
         {
-            var app = new GameApp();
+            var app = new AnkhApp();
             var loop = new MessageLoop();
             loop.Run(app, app.RenderLoop);
         }
