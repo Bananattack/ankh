@@ -4,7 +4,6 @@ namespace Defenetron
 {
     class GameApp : Form
     {
-        private readonly GraphicsDevice _graphicsDevice;
         private readonly Game _game;
 
         GameApp()
