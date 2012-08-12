@@ -17,7 +17,7 @@ namespace Defenetron
     {
         public static void SafeDispose(DisposeBase disposable)
         {
-            if(disposable !=  null && !disposable.IsDisposed)
+            if(disposable != null && !disposable.IsDisposed)
             {
                 disposable.Dispose();
             }
@@ -65,10 +65,10 @@ namespace Defenetron
 
             ResetDevice();
 
-            form.ResizeEnd += _form_ResizeEnd;
+            form.ResizeEnd += FormResizeEnd;
         }
 
-        void _form_ResizeEnd(object sender, EventArgs e)
+        void FormResizeEnd(object sender, EventArgs e)
         {
             ResetDevice();
         }
