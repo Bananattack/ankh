@@ -117,6 +117,8 @@ namespace Defenetron
             return new Color4(r, g, b, a);
         }
 
+
+
         public void Present()
         {
             _swapChain.Present(1, PresentFlags.None);
