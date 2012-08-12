@@ -10,6 +10,7 @@ using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using Device = SharpDX.Direct3D11.Device;
 using Resource = SharpDX.Direct3D11.Resource;
+using Buffer = SharpDX.Direct3D11.Buffer;
 
 namespace Defenetron
 {
@@ -17,7 +18,7 @@ namespace Defenetron
     {
         public static void SafeDispose(DisposeBase disposable)
         {
-            if(disposable != null && !disposable.IsDisposed)
+            if(disposable !=  null && !disposable.IsDisposed)
             {
                 disposable.Dispose();
             }
@@ -28,11 +29,16 @@ namespace Defenetron
         private const Format format = Format.R8G8B8A8_UNorm;
 
         private Device device;
+        private DeviceContext context;
         private SwapChain swapChain;
 
         private RenderTargetView renderTargetView;
         private DepthStencilView depthStencilView;
         private Texture2D depthBuffer;
+
+        private int lastVertexBuffer = -1;
+        private Buffer[] vertexBuffers = new Buffer[32];
+        private DataBox[] vertexBufferDataBoxes = new DataBox[32];
 
         public void CreateDevice(Form form)
         {
@@ -65,10 +71,18 @@ namespace Defenetron
 
             ResetDevice();
 
-            form.ResizeEnd += FormResizeEnd;
+            form.ResizeEnd += _form_ResizeEnd;
         }
 
-        void FormResizeEnd(object sender, EventArgs e)
+        public Color4 CreateColor(float r, float g, float b, float a = 1.0f) {
+            return new Color4(r, g, b, a);
+        }
+
+        public Vector4 CreateVector(float x, float y, float z, float w) {
+            return new Vector4(x, y, z, w);
+        }
+
+        void _form_ResizeEnd(object sender, EventArgs e)
         {
             ResetDevice();
         }
@@ -100,11 +114,12 @@ namespace Defenetron
 
             depthBuffer = new Texture2D(device, depthDesc);
             depthStencilView = new DepthStencilView(device, depthBuffer);
+
+            context = device.ImmediateContext;
         }
 
         public void ClearBackBuffer(Color4 color)
         {
-            var context = device.ImmediateContext;
             context.OutputMerger.SetTargets(depthStencilView, renderTargetView);
             context.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height, 0, 1);
             context.ClearRenderTargetView(renderTargetView, color);
@@ -112,9 +127,33 @@ namespace Defenetron
                 depthStencilView,
                 DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
         }
+        
+        public int MakeVertexBuffer(int size) 
+        {
+            var bufferDesc = new BufferDescription(
+                size,
+                SharpDX.Direct3D11.ResourceUsage.Dynamic,
+                SharpDX.Direct3D11.BindFlags.VertexBuffer,
+                SharpDX.Direct3D11.CpuAccessFlags.Write,
+                0,
+                3
+            );
+            var buffer = new Buffer(device, bufferDesc);
+            var bufferBinding = new VertexBufferBinding(buffer, 0, 0);
+            var databox = new DataBox();
 
-        public Color4 CreateColor(float r, float g, float b, float a = 1.0f) {
-            return new Color4(r, g, b, a);
+            // TODO there are no bounds checking here; we can only actually add 16 or 32
+            lastVertexBuffer++;
+
+            vertexBuffers[lastVertexBuffer] = buffer;
+            vertexBufferDataBoxes[lastVertexBuffer] = databox;
+            context.InputAssembler.SetVertexBuffers(lastVertexBuffer, bufferBinding);
+
+            return lastVertexBuffer;
+        }
+
+        public void FillVertexBuffer(int index, Vector4[] data) {
+            context.UpdateSubresource<Vector4>(data, vertexBuffers[index]);
         }
 
         public void Present()
