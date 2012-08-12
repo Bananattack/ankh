@@ -16,3 +16,4 @@ Debug
 #ReSharper stuff
 *.ReSharper
 _ReSharper.*
+*.Resharper.user
