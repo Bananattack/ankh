@@ -17,8 +17,6 @@ namespace Defenetron
         public Point p;
     }
 
-    public delegate void MainLoop();
-
     class MessageLoop
     {
         [SuppressUnmanagedCodeSecurity]
@@ -40,9 +38,9 @@ namespace Defenetron
             }
         }
 
-        private MainLoop _loopDelegate;
+        private Action _loopDelegate;
 
-        public void Run(Form form, MainLoop loop)
+        public void Run(Form form, Action loop)
         {
             _loopDelegate = loop;
             Application.Idle += Application_Idle;

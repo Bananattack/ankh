@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Game.cs" />
+    <Compile Include="src\GraphicsDevice.cs" />
     <Compile Include="src\MessageLoop.cs" />
     <Compile Include="src\Main.cs">
       <SubType>Form</SubType>
