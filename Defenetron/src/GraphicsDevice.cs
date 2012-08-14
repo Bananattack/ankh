@@ -71,7 +71,7 @@ namespace Defenetron
 
             ResetDevice();
 
-            form.ResizeEnd += _form_ResizeEnd;
+            form.ResizeEnd += ResizeEnd;
         }
 
         public Color4 CreateColor(float r, float g, float b, float a = 1.0f) {
@@ -82,7 +82,7 @@ namespace Defenetron
             return new Vector4(x, y, z, w);
         }
 
-        void _form_ResizeEnd(object sender, EventArgs e)
+        void ResizeEnd(object sender, EventArgs e)
         {
             ResetDevice();
         }
