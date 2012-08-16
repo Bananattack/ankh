@@ -117,12 +117,6 @@
     <Content Include="Assets\StoreLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Common\StandardStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="SharpDX">
       <HintPath>..\..\Defenetron\lib\SharpDX\Win8Metro\SharpDX.dll</HintPath>
     </Reference>
@@ -147,6 +141,9 @@
     <Reference Include="SharpDX.XInput">
       <HintPath>..\..\Defenetron\lib\SharpDX\Win8Metro\SharpDX.XInput.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
