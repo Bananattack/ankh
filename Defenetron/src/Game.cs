@@ -15,6 +15,10 @@ namespace Defenetron {
             renderEngine.Render();
         }
 
+        public virtual void Step()
+        {
+        }
+
         // to implement
         public virtual void Setup() 
         { }
