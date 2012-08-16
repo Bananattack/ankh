@@ -1,3 +1,4 @@
+﻿
 ﻿using System;
 
 namespace Defenetron {
@@ -24,4 +25,3 @@ namespace Defenetron {
         { }
     }
 }
-

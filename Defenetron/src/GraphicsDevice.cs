@@ -71,18 +71,20 @@ namespace Defenetron
 
             ResetDevice();
 
-            form.ResizeEnd += _form_ResizeEnd;
+            form.ResizeEnd += ResizeEnd;
         }
 
-        public Color4 CreateColor(float r, float g, float b, float a = 1.0f) {
+        public Color4 CreateColor(float r, float g, float b, float a = 1.0f)
+        {
             return new Color4(r, g, b, a);
         }
 
-        public Vector4 CreateVector(float x, float y, float z, float w) {
+        public Vector4 CreateVector(float x, float y, float z, float w)
+        {
             return new Vector4(x, y, z, w);
         }
 
-        void _form_ResizeEnd(object sender, EventArgs e)
+        void ResizeEnd(object sender, EventArgs e)
         {
             ResetDevice();
         }
