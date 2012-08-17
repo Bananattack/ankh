@@ -7,7 +7,7 @@
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
-    <OSMinVersion>6.2.0</OSMinVersion>
+    <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
   </Prerequisites>
   <Resources>
