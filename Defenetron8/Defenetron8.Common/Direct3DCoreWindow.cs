@@ -111,8 +111,6 @@ namespace Defenetron8.Common.Modern
             // handle window size change
         }
 
-        private Direct3DDevice _device;
-    
         DXGI.SwapChain1 IDirect3DWindow.CreateSwapChain(D3D11.Device1 device, ref DXGI.SwapChainDescription1 description)
         {
             var dxgiDevice = device.QueryInterface<DXGI.Device1>();
@@ -134,6 +132,7 @@ namespace Defenetron8.Common.Modern
             }
         }
 
+        private Direct3DDevice _device;
         private CoreWindow _coreWindow;
     }
 
