@@ -19,13 +19,13 @@ namespace Ankh.ImageIO
 			//    new Png().read(f, output);
 			//}
 
-			var output = new SysdrawingImageOutput();
+			var output = new ArrayImageOutput();
 			using (var f = File.OpenRead("../../test/ImageIo/32bpp.png"))
 				new Png().read(f, output);
 			using (var bmp = new System.Drawing.Bitmap("../../test/ImageIo/32bpp.png"))
 				for (int y = 0; y < bmp.Height; y++)
 					for (int x = 0; x < bmp.Width; x++)
-						if (bmp.GetPixel(x, y) != output.bmp.GetPixel(x, y))
+						if (bmp.GetPixel(x, y).ToArgb() != output.ArrayImage.Pixels[y*bmp.Width+x])
 							throw new InvalidOperationException();
 				
 		}
