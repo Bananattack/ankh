@@ -19,7 +19,7 @@ namespace Ankh.ImageIO
 			//    new Png().read(f, output);
 			//}
 
-			var output = new ArrayImageOutput();
+			var output = new PngArrayImageOutput();
 			using (var f = File.OpenRead("../../test/ImageIo/32bpp.png"))
 				new Png().read(f, output);
 			using (var bmp = new System.Drawing.Bitmap("../../test/ImageIo/32bpp.png"))

@@ -13,7 +13,7 @@ namespace Ankh.ImageIO
 		void Finish();
 	}
 
-	class ArrayImageOutput : IPngImageOutput
+	class PngArrayImageOutput : IPngImageOutput
 	{
 		public ArrayImage ArrayImage;
 		public void Start(Png png)

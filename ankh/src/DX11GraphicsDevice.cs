@@ -57,6 +57,33 @@ namespace Ankh
 		private Buffer[] vertexBuffers = new Buffer[32];
 		private DataBox[] vertexBufferDataBoxes = new DataBox[32];
 
+		class MyTexture : ITexture
+		{
+			DX11GraphicsDevice dev;
+			Texture2D tex;
+			public MyTexture(DX11GraphicsDevice dev, int width, int height)
+			{
+				this.dev = dev;
+				var descr = new Texture2DDescription
+					{
+						Width = width,
+						Height = height,
+						Format = Format.R8G8B8A8_SInt
+					};
+				tex = new Texture2D(dev.device,descr);
+			}
+
+			public void WriteAll(int[] data)
+			{
+				dev.context.UpdateSubresource(data, tex);
+			}
+		}
+
+		public override ITexture CreateTexture(int width, int height)
+		{
+			return new MyTexture(this, width, height);
+		}
+
 		public override void CreateDevice(Form form)
 		{
 			this.form = form;

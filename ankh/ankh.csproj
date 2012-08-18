@@ -89,6 +89,7 @@
   <ItemGroup />
   <ItemGroup>
     <Compile Include="src\DX11GraphicsDevice.cs" />
+    <Compile Include="src\DX9GraphicsDevice.cs" />
     <Compile Include="src\GraphicsDevice.cs" />
     <Compile Include="src\ImageIo\ImageIo.cs" />
     <Compile Include="src\ImageIo\pcx\pcx.cs" />
