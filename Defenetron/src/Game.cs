@@ -5,7 +5,7 @@ namespace Defenetron
 {
 	public class Game
 	{
-		private RenderHandler renderEngine;
+		protected RenderHandler renderEngine;
 
 		public Game(GraphicsDeviceBase device)
 		{
@@ -13,7 +13,7 @@ namespace Defenetron
 			this.Setup();
 		}
 
-		public void Render()
+		public virtual void Render()
 		{
 			renderEngine.Render();
 		}
@@ -24,6 +24,8 @@ namespace Defenetron
 
 		// to implement
 		public virtual void Setup()
-		{ }
+		{
+
+		}
 	}
 }
