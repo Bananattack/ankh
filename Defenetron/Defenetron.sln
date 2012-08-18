@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Defenetron", "Defenetron.csproj", "{89E70D58-223B-47B6-8B52-DDE8A15C2E8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ankh", "..\ankh\ankh.csproj", "{1ED10225-7FEF-4646-B58D-39FA35C73A61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{89E70D58-223B-47B6-8B52-DDE8A15C2E8E}.Debug|x86.Build.0 = Debug|x86
 		{89E70D58-223B-47B6-8B52-DDE8A15C2E8E}.Release|x86.ActiveCfg = Release|x86
 		{89E70D58-223B-47B6-8B52-DDE8A15C2E8E}.Release|x86.Build.0 = Release|x86
+		{1ED10225-7FEF-4646-B58D-39FA35C73A61}.Debug|x86.ActiveCfg = Debug|x86
+		{1ED10225-7FEF-4646-B58D-39FA35C73A61}.Debug|x86.Build.0 = Debug|x86
+		{1ED10225-7FEF-4646-B58D-39FA35C73A61}.Release|x86.ActiveCfg = Release|x86
+		{1ED10225-7FEF-4646-B58D-39FA35C73A61}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

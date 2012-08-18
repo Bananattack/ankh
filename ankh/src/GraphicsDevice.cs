@@ -7,10 +7,9 @@ using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D9;
 
-namespace Defenetron
+namespace Ankh
 {
-
-	class GraphicsDeviceFactory
+	public class GraphicsDeviceFactory
 	{
 
 		/// <summary>

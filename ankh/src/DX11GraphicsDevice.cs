@@ -12,7 +12,7 @@ using Device = SharpDX.Direct3D11.Device;
 using Resource = SharpDX.Direct3D11.Resource;
 using Buffer = SharpDX.Direct3D11.Buffer;
 
-namespace Defenetron
+namespace Ankh
 {
 	public class DX11GraphicsDevice : GraphicsDeviceBase
 	{
