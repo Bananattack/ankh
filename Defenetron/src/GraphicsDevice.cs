@@ -5,162 +5,145 @@ using System.Text;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using SharpDX;
-using SharpDX.Direct3D;
-using SharpDX.Direct3D11;
-using SharpDX.DXGI;
-using Device = SharpDX.Direct3D11.Device;
-using Resource = SharpDX.Direct3D11.Resource;
-using Buffer = SharpDX.Direct3D11.Buffer;
+using SharpDX.Direct3D9;
 
 namespace Defenetron
 {
-    public class GraphicsDevice
-    {
-        public static void SafeDispose(DisposeBase disposable)
-        {
-            if(disposable !=  null && !disposable.IsDisposed)
-            {
-                disposable.Dispose();
-            }
-        }
 
-        private Form form;
+	class GraphicsDeviceFactory
+	{
 
-        private const Format format = Format.R8G8B8A8_UNorm;
+		/// <summary>
+		/// attempts to create a DirectX-type device, preferring 11 if available and trying 9 otherwise
+		/// </summary>
+		public static GraphicsDeviceBase CreateDxDevice()
+		{
+			try
+			{
+				var dx11 = new DX11GraphicsDevice();
+				if (dx11.IsAvailable) return dx11;
+			}
+			catch
+			{
+			}
 
-        private Device device;
-        private DeviceContext context;
-        private SwapChain swapChain;
+			try
+			{
+				var dx9 = new DX9GraphicsDevice();
+				if (dx9.IsAvailable) return dx9;
+			}
+			catch
+			{
+			}
 
-        private RenderTargetView renderTargetView;
-        private DepthStencilView depthStencilView;
-        private Texture2D depthBuffer;
+			return null;
+		}
+	}
 
-        private int lastVertexBuffer = -1;
-        private Buffer[] vertexBuffers = new Buffer[32];
-        private DataBox[] vertexBufferDataBoxes = new DataBox[32];
+	public abstract class GraphicsDeviceBase
+	{
+		public abstract void CreateDevice(Form form);
+		public abstract void ResetDevice();
+		public abstract void ClearBackBuffer(Color4 color);
 
-        public void CreateDevice(Form form)
-        {
-            this.form = form;
-            var scDesc = new SwapChainDescription
-                             {
-                                 BufferCount = 2,
-                                 Flags = SwapChainFlags.AllowModeSwitch,
-                                 IsWindowed = true,
-                                 ModeDescription = new ModeDescription(
-                                     form.ClientSize.Width,
-                                     form.ClientSize.Height,
-                                     new Rational(60, 1),
-                                     format),
-                                 OutputHandle = form.Handle,
-                                 SampleDescription = new SampleDescription(1, 0),
-                                 SwapEffect = SwapEffect.Sequential,
-                                 Usage = Usage.RenderTargetOutput
-                             };
+		//dont think these are great ideas
+		public abstract int MakeVertexBuffer(int size);
+		public abstract void FillVertexBuffer(int index, Vector4[] data);
 
-            var levels = new[] {FeatureLevel.Level_9_2, FeatureLevel.Level_9_1};
+		public abstract void Present();
 
-            Device.CreateWithSwapChain(
-                DriverType.Hardware,
-                DeviceCreationFlags.None,
-                levels,
-                scDesc,
-                out device,
-                out swapChain);
+		public abstract bool IsAvailable { get; }
 
-            ResetDevice();
+		//do we really need these? i dont think i want to view them as device resources -zero
+		public Color4 CreateColor(float r, float g, float b, float a = 1.0f)
+		{
+			return new Color4(r, g, b, a);
+		}
 
-            form.ResizeEnd += ResizeEnd;
-        }
+		//do we really need these? i dont think i want to view them as device resources -zero
+		public Vector4 CreateVector(float x, float y, float z, float w)
+		{
+			return new Vector4(x, y, z, w);
+		}
+	}
 
-        public Color4 CreateColor(float r, float g, float b, float a = 1.0f)
-        {
-            return new Color4(r, g, b, a);
-        }
+	public class DX9GraphicsDevice : GraphicsDeviceBase
+	{
+		private Direct3D d3d;
+		private Device Device;
 
-        public Vector4 CreateVector(float x, float y, float z, float w)
-        {
-            return new Vector4(x, y, z, w);
-        }
+		public override bool IsAvailable
+		{
+			get
+			{
+				try
+				{
+					var temp = new Direct3D();
+					temp.Dispose();
+					return true;
+				}
+				catch
+				{
+					return false;
+				}
+			}
+		}
 
-        void ResizeEnd(object sender, EventArgs e)
-        {
-            ResetDevice();
-        }
-        
-        public void ResetDevice()
-        {
-            SafeDispose(renderTargetView);
-            SafeDispose(depthStencilView);
-            SafeDispose(depthBuffer);
+		public override void CreateDevice(Form form)
+		{
+			d3d = new Direct3D();
 
-            swapChain.ResizeBuffers(2, form.ClientSize.Width, form.ClientSize.Height, format, SwapChainFlags.AllowModeSwitch);
+			var pp = new PresentParameters
+				{
+					BackBufferWidth = Math.Max(1, form.ClientSize.Width),
+					BackBufferHeight = Math.Max(1, form.ClientSize.Height),
+					DeviceWindowHandle = form.Handle,
+					PresentationInterval = PresentInterval.Immediate,
+					Windowed = true,
+					AutoDepthStencilFormat = Format.D24X8,
+					BackBufferCount = 1,
+					BackBufferFormat = Format.X8R8G8B8,
+					EnableAutoDepthStencil = true,
+					SwapEffect = SwapEffect.Discard
+				};
 
-            using (var resource = Resource.FromSwapChain<Texture2D>(swapChain, 0))
-            {
-                renderTargetView = new RenderTargetView(device, resource);
-            }
+			var flags = CreateFlags.SoftwareVertexProcessing;
+			if ((d3d.GetDeviceCaps(0, DeviceType.Hardware).DeviceCaps & DeviceCaps.HWTransformAndLight) != 0)
+			{
+				flags = CreateFlags.HardwareVertexProcessing;
+			}
 
-            var depthDesc = new Texture2DDescription();
-            depthDesc.ArraySize = 1;
-            depthDesc.BindFlags = BindFlags.DepthStencil;
-            depthDesc.CpuAccessFlags = CpuAccessFlags.None;
-            depthDesc.Format = Format.D24_UNorm_S8_UInt;
-            depthDesc.MipLevels = 1;
-            depthDesc.OptionFlags = ResourceOptionFlags.None;
-            depthDesc.SampleDescription = new SampleDescription(1, 0);
-            depthDesc.Usage = ResourceUsage.Default;
-            depthDesc.Width = form.ClientSize.Width;
-            depthDesc.Height = form.ClientSize.Height;
+			Device = new Device(d3d, 0, DeviceType.Hardware, form.Handle, flags, pp);
+		}
+		public override void ResetDevice()
+		{
+		}
+		public override void ClearBackBuffer(Color4 color)
+		{
+			Device.Clear(ClearFlags.Target,color,1.0f,0);
+		}
+		
+		Dictionary<int, VertexBuffer> VertexBuffers = new Dictionary<int, VertexBuffer>();
+		int NextVertexBufferId = 0;
+		public override int MakeVertexBuffer(int size)
+		{
+			var vb = new VertexBuffer(Device, size, Usage.None, VertexFormat.Position, Pool.Default);
+			while (VertexBuffers.ContainsKey(NextVertexBufferId))
+				NextVertexBufferId++;
+			VertexBuffers[NextVertexBufferId] = vb;
+			return NextVertexBufferId++;
+		}
+		public override void FillVertexBuffer(int index, Vector4[] data)
+		{
+			var vb = VertexBuffers[index];
+			var ds = vb.Lock(0, 0, LockFlags.Discard);
+			ds.WriteRange(data);
+			vb.Unlock();
+		}
+		public override void Present()
+		{
+			Device.Present();
+		}
+	}
 
-            depthBuffer = new Texture2D(device, depthDesc);
-            depthStencilView = new DepthStencilView(device, depthBuffer);
-
-            context = device.ImmediateContext;
-        }
-
-        public void ClearBackBuffer(Color4 color)
-        {
-            context.OutputMerger.SetTargets(depthStencilView, renderTargetView);
-            context.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height, 0, 1);
-            context.ClearRenderTargetView(renderTargetView, color);
-            context.ClearDepthStencilView(
-                depthStencilView,
-                DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);
-        }
-        
-        public int MakeVertexBuffer(int size) 
-        {
-            var bufferDesc = new BufferDescription(
-                size,
-                SharpDX.Direct3D11.ResourceUsage.Dynamic,
-                SharpDX.Direct3D11.BindFlags.VertexBuffer,
-                SharpDX.Direct3D11.CpuAccessFlags.Write,
-                0,
-                3
-            );
-            var buffer = new Buffer(device, bufferDesc);
-            var bufferBinding = new VertexBufferBinding(buffer, 0, 0);
-            var databox = new DataBox();
-
-            // TODO there are no bounds checking here; we can only actually add 16 or 32
-            lastVertexBuffer++;
-
-            vertexBuffers[lastVertexBuffer] = buffer;
-            vertexBufferDataBoxes[lastVertexBuffer] = databox;
-            context.InputAssembler.SetVertexBuffers(lastVertexBuffer, bufferBinding);
-
-            return lastVertexBuffer;
-        }
-
-        public void FillVertexBuffer(int index, Vector4[] data) {
-            context.UpdateSubresource<Vector4>(data, vertexBuffers[index]);
-        }
-
-        public void Present()
-        {
-            swapChain.Present(1, PresentFlags.None);
-        }
-    }
 }

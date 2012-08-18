@@ -67,7 +67,8 @@
     <Reference Include="SharpDX.Direct3D11">
       <HintPath>lib\SharpDX\Signed-net20\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D9">
+    <Reference Include="SharpDX.Direct3D9, Version=2.2.0.0, Culture=neutral, PublicKeyToken=6f19e8495e7498cf, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\SharpDX\Signed-net20\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DirectInput">
@@ -103,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\DefenetronGame.cs" />
+    <Compile Include="src\DX11GraphicsDevice.cs" />
     <Compile Include="src\Game.cs" />
     <Compile Include="src\GraphicsDevice.cs" />
     <Compile Include="src\InputHandler.cs" />

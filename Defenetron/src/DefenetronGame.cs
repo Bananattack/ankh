@@ -5,7 +5,8 @@ using Game = Defenetron.Game;
 namespace Defenetron {
     public class DefenetronGame:Game 
     {
-        public DefenetronGame(GraphicsDevice d):base(d) 
+			public DefenetronGame(GraphicsDeviceBase d)
+				: base(d) 
         {}
 
         public override void Step()

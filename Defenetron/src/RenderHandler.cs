@@ -5,10 +5,10 @@ using System.Drawing.Drawing2D;
 namespace Defenetron {
     public class RenderHandler 
     {
-        private GraphicsDevice device;
+			private GraphicsDeviceBase device;
         private int vertexBufferIndex;
 
-        public RenderHandler(GraphicsDevice d) 
+				public RenderHandler(GraphicsDeviceBase d) 
         {
             device = d;
 
