@@ -8,12 +8,9 @@ namespace Defenetron
 	{
 		public DefenetronGame(GraphicsDeviceBase d)
 			: base(d)
-		{
-			spriteBatch = d.CreateSpriteBatch();
-		}
+		{}
 
 		ITexture tex;
-		ISpriteBatch spriteBatch;
 
 		public override void Render()
 		{
@@ -29,7 +26,10 @@ namespace Defenetron
 		{
 			dx9.ClearBackBuffer(renderEngine.device.CreateColor(123.0f / 255.0f, 160.0f / 255.0f, 183.0f / 255.0f, 1));
 			dx9.Device.BeginScene();
-			spriteBatch.Draw(tex);
+			using (var sb = dx9.CreateSpriteBatch())
+			{
+				sb.Draw(tex);
+			}
 			dx9.Device.EndScene();
 		}
 

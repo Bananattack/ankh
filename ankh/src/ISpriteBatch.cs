@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ankh
 {
-	public interface ISpriteBatch
+	public interface ISpriteBatch : IDisposable
 	{
 		void Draw(ITexture tex);
 	}
