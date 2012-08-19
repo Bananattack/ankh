@@ -9,9 +9,9 @@ namespace Defenetron
 
 		AnkhApp()
 		{
-			GraphicsDeviceBase device = GraphicsDeviceFactory.CreateDxDevice();
-			device.CreateDevice(this);
-
+			// As of this writing, the DX11 renderer crashes when creating a Texture2D.
+			//GraphicsDeviceBase device = GraphicsDevice.Create(this);
+			var device = new DX9GraphicsDevice(this);
 			game = new DefenetronGame(device);
 		}
 

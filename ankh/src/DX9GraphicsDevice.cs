@@ -36,7 +36,7 @@ namespace Ankh
 			return new MyTexture(this, width, height);
 		}
 
-		public override bool IsAvailable
+		public static bool IsAvailable
 		{
 			get
 			{
@@ -53,7 +53,7 @@ namespace Ankh
 			}
 		}
 
-		public override void CreateDevice(Form form)
+		public DX9GraphicsDevice(Form form)
 		{
 			d3d = new Direct3D();
 

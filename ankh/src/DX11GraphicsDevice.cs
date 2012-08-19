@@ -24,7 +24,7 @@ namespace Ankh
 			}
 		}
 
-		public override bool IsAvailable
+		public static bool IsAvailable
 		{
 			get
 			{
@@ -68,9 +68,10 @@ namespace Ankh
 					{
 						Width = width,
 						Height = height,
-						Format = Format.R8G8B8A8_SInt
+						Format = Format.R8G8B8A8_SInt,
+                        ArraySize = 1
 					};
-				tex = new Texture2D(dev.device,descr);
+				tex = new Texture2D(dev.device, descr);
 			}
 
 			public void WriteAll(int[] data)
@@ -84,7 +85,7 @@ namespace Ankh
 			return new MyTexture(this, width, height);
 		}
 
-		public override void CreateDevice(Form form)
+		public DX11GraphicsDevice(Form form)
 		{
 			this.form = form;
 			var scDesc = new SwapChainDescription
