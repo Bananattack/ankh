@@ -90,6 +90,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Util.cs" />
     <Compile Include="src\DX11GraphicsDevice.cs" />
     <Compile Include="src\DX9\GraphicsDevice.cs" />
     <Compile Include="src\DX9\SpriteBatch.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="src\ImageIo\png\SubInputStream.cs" />
     <Compile Include="src\ImageIo\test.cs" />
     <Compile Include="src\ISpriteBatch.cs" />
+    <Compile Include="src\Vector.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

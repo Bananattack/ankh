@@ -7,6 +7,6 @@ namespace Ankh
 {
 	public interface ISpriteBatch : IDisposable
 	{
-		void Draw(ITexture tex);
+		void Draw(ITexture tex, Vector3 position);
 	}
 }

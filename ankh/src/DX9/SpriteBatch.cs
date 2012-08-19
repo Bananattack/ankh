@@ -19,10 +19,15 @@ namespace Ankh.DX9
 		}
 
 		// FIXME: This is preposterously naive at the moment. -- andy
-		public void Draw(ITexture tex)
+		public void Draw(ITexture tex, Vector3 position)
 		{
-			var t = (GraphicsDevice.DX9Texture)tex;
-			sprite.Draw(t.tex, new SharpDX.Rectangle(0, 0, 16, 16), new SharpDX.Vector3(0, 0, 0), new SharpDX.Vector3(0, 0, 0), SharpDX.Colors.White);
+			sprite.Draw(
+				((GraphicsDevice.DX9Texture)tex).tex,
+				/* srcRectRef */ new SharpDX.Rectangle(0, 0, 16, 16),
+				/* centerRef  */ new SharpDX.Vector3(0, 0, 0),
+				/* posRef     */ position.ToSharpDX(),
+				/* color      */ SharpDX.Colors.White
+			);
 		}
 
 		public void Dispose()

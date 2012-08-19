@@ -28,7 +28,8 @@ namespace Defenetron
 			dx9.Device.BeginScene();
 			using (var sb = dx9.CreateSpriteBatch())
 			{
-				sb.Draw(tex);
+				sb.Draw(tex, Ankh.Vector3.Zero);
+				sb.Draw(tex, new Ankh.Vector3(32, 32, 0));
 			}
 			dx9.Device.EndScene();
 		}
