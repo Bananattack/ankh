@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="src\DX11GraphicsDevice.cs" />
     <Compile Include="src\DX9\GraphicsDevice.cs" />
+    <Compile Include="src\DX9\SpriteBatch.cs" />
     <Compile Include="src\GraphicsDevice.cs" />
     <Compile Include="src\ImageIo\ImageIo.cs" />
     <Compile Include="src\ImageIo\pcx\pcx.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="src\ImageIo\png\png.cs" />
     <Compile Include="src\ImageIo\png\SubInputStream.cs" />
     <Compile Include="src\ImageIo\test.cs" />
+    <Compile Include="src\ISpriteBatch.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

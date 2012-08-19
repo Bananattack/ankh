@@ -52,6 +52,7 @@ namespace Ankh
 	{
 		public abstract void ResetDevice();
 		public abstract void ClearBackBuffer(Color4 color);
+		public abstract ISpriteBatch CreateSpriteBatch();
 
 		//dont think these are great ideas
 		public abstract int MakeVertexBuffer(int size);

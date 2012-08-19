@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D9;
+using Ankh;
 
 namespace Ankh.DX9
 {
@@ -107,6 +108,10 @@ namespace Ankh.DX9
 		public override void Present()
 		{
 			Device.Present();
+		}
+		public override ISpriteBatch CreateSpriteBatch()
+		{
+			return new SpriteBatch(this);
 		}
 	}
 

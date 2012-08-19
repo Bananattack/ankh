@@ -8,9 +8,12 @@ namespace Defenetron
 	{
 		public DefenetronGame(GraphicsDeviceBase d)
 			: base(d)
-		{ }
+		{
+			spriteBatch = d.CreateSpriteBatch();
+		}
 
 		ITexture tex;
+		ISpriteBatch spriteBatch;
 
 		public override void Render()
 		{
@@ -26,12 +29,7 @@ namespace Defenetron
 		{
 			dx9.ClearBackBuffer(renderEngine.device.CreateColor(123.0f / 255.0f, 160.0f / 255.0f, 183.0f / 255.0f, 1));
 			dx9.Device.BeginScene();
-			using (var sb = new SharpDX.Direct3D9.Sprite(dx9.Device))
-			{
-				sb.Begin(SharpDX.Direct3D9.SpriteFlags.AlphaBlend);
-				sb.Draw((tex as Ankh.DX9.GraphicsDevice.DX9Texture).tex, new SharpDX.Rectangle(0, 0, 16, 16), new SharpDX.Vector3(0, 0, 0), new SharpDX.Vector3(0, 0, 0), SharpDX.Colors.White);
-				sb.End();
-			}
+			spriteBatch.Draw(tex);
 			dx9.Device.EndScene();
 		}
 

@@ -200,5 +200,10 @@ namespace Ankh
 		{
 			swapChain.Present(1, PresentFlags.None);
 		}
+
+		public override ISpriteBatch CreateSpriteBatch()
+		{
+			return null; // FIXME
+		}
 	}
 }
