@@ -7,18 +7,18 @@ using System.Windows.Forms;
 using SharpDX;
 using SharpDX.Direct3D9;
 
-namespace Ankh
+namespace Ankh.DX9
 {
-	public class DX9GraphicsDevice : GraphicsDeviceBase
+	public class GraphicsDevice : GraphicsDeviceBase
 	{
 		public Direct3D d3d;
 		public Device Device;
 
-		public class MyTexture : ITexture
+		public class DX9Texture : ITexture
 		{
-			DX9GraphicsDevice dev;
+			GraphicsDevice dev;
 			public Texture tex;
-			public MyTexture(DX9GraphicsDevice dev, int width, int height)
+			public DX9Texture(GraphicsDevice dev, int width, int height)
 			{
 				this.dev = dev;
 				tex = new Texture(dev.Device, width, height, 1, Usage.Dynamic, Format.A8R8G8B8, Pool.Default);
@@ -33,7 +33,7 @@ namespace Ankh
 
 		public override ITexture CreateTexture(int width, int height)
 		{
-			return new MyTexture(this, width, height);
+			return new DX9Texture(this, width, height);
 		}
 
 		public static bool IsAvailable
@@ -53,7 +53,7 @@ namespace Ankh
 			}
 		}
 
-		public DX9GraphicsDevice(Form form)
+		public GraphicsDevice(Form form)
 		{
 			d3d = new Direct3D();
 

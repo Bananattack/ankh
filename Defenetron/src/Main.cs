@@ -11,7 +11,7 @@ namespace Defenetron
 		{
 			// As of this writing, the DX11 renderer crashes when creating a Texture2D.
 			//GraphicsDeviceBase device = GraphicsDevice.Create(this);
-			var device = new DX9GraphicsDevice(this);
+			var device = new Ankh.DX9.GraphicsDevice(this);
 			game = new DefenetronGame(device);
 		}
 

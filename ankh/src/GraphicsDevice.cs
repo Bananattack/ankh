@@ -33,7 +33,7 @@ namespace Ankh
 			{
 				try
 				{
-					return new DX9GraphicsDevice(f);
+					return new Ankh.DX9.GraphicsDevice(f);
 				}
 				catch
 				{
