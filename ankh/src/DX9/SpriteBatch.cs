@@ -19,7 +19,7 @@ namespace Ankh.DX9
 		public void Draw(ITexture tex, Vector3 position)
 		{
 			sprite.Draw(
-				((GraphicsDevice.DX9Texture)tex).tex,
+				((Texture)tex).tex,
 				/* srcRectRef */ new SharpDX.Rectangle(0, 0, 16, 16),
 				/* centerRef  */ new SharpDX.Vector3(0, 0, 0),
 				/* posRef     */ position.ToSharpDX(),

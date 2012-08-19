@@ -15,26 +15,9 @@ namespace Ankh.DX9
 		public Direct3D d3d;
 		public Device Device;
 
-		public class DX9Texture : ITexture
-		{
-			GraphicsDevice dev;
-			public Texture tex;
-			public DX9Texture(GraphicsDevice dev, int width, int height)
-			{
-				this.dev = dev;
-				tex = new Texture(dev.Device, width, height, 1, Usage.Dynamic, Format.A8R8G8B8, Pool.Default);
-			}
-			public void WriteAll(int[] data)
-			{
-				var dr = tex.LockRectangle(0, LockFlags.Discard);
-				System.Runtime.InteropServices.Marshal.Copy(data, 0, dr.DataPointer, data.Length);
-				tex.UnlockRectangle(0);
-			}
-		}
-
 		public override ITexture CreateTexture(int width, int height)
 		{
-			return new DX9Texture(this, width, height);
+			return new Texture(this, width, height);
 		}
 
 		public static bool IsAvailable
