@@ -7,13 +7,10 @@ namespace Ankh.DX9
 {
 	public class SpriteBatch : ISpriteBatch
 	{
-		private readonly GraphicsDevice device;
 		private readonly SharpDX.Direct3D9.Sprite sprite;
 
 		internal SpriteBatch(GraphicsDevice device)
 		{
-			this.device = device;
-
 			sprite = new SharpDX.Direct3D9.Sprite(device.Device);
 			sprite.Begin(SharpDX.Direct3D9.SpriteFlags.AlphaBlend);
 		}
