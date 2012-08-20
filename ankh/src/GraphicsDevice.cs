@@ -72,6 +72,8 @@ namespace Ankh
 			return CreateTexture(Ankh.ImageIO.ImageIo.Load(path));
 		}
 
+		internal virtual void BeginScene() { }
+		internal virtual void EndScene() { }
 		public abstract void Present();
 
 		//do we really need these? i dont think i want to view them as device resources -zero

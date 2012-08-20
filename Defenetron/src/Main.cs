@@ -5,7 +5,7 @@ namespace Defenetron
 {
 	class AnkhApp : Form
 	{
-		private readonly Game game;
+		private readonly DefenetronGame game;
 
 		AnkhApp()
 		{

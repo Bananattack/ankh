@@ -88,10 +88,22 @@ namespace Ankh.DX9
 			ds.WriteRange(data);
 			vb.Unlock();
 		}
+
+		internal override void BeginScene()
+		{
+			Device.BeginScene();
+		}
+
+		internal override void EndScene()
+		{
+			Device.EndScene();
+		}
+
 		public override void Present()
 		{
 			Device.Present();
 		}
+
 		public override ISpriteBatch CreateSpriteBatch()
 		{
 			return new SpriteBatch(this);
