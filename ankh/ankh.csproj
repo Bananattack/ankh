@@ -87,9 +87,6 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="src\DX11GraphicsDevice.cs" />
     <Compile Include="src\DX9\GraphicsDevice.cs" />
     <Compile Include="src\DX9\SpriteBatch.cs" />
