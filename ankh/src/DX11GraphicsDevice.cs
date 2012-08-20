@@ -41,8 +41,6 @@ namespace Ankh
 			}
 		}
 
-		private Form form;
-
 		private const Format format = Format.R8G8B8A8_UNorm;
 
 		private Device device;
@@ -86,8 +84,8 @@ namespace Ankh
 		}
 
 		public DX11GraphicsDevice(Form form)
+			: base(form)
 		{
-			this.form = form;
 			var scDesc = new SwapChainDescription
 			{
 				BufferCount = 2,
@@ -132,7 +130,7 @@ namespace Ankh
 			SafeDispose(depthStencilView);
 			SafeDispose(depthBuffer);
 
-			swapChain.ResizeBuffers(2, form.ClientSize.Width, form.ClientSize.Height, format, SwapChainFlags.AllowModeSwitch);
+			swapChain.ResizeBuffers(2, Form.ClientSize.Width, Form.ClientSize.Height, format, SwapChainFlags.AllowModeSwitch);
 
 			using (var resource = Resource.FromSwapChain<Texture2D>(swapChain, 0))
 			{
@@ -148,8 +146,8 @@ namespace Ankh
 			depthDesc.OptionFlags = ResourceOptionFlags.None;
 			depthDesc.SampleDescription = new SampleDescription(1, 0);
 			depthDesc.Usage = ResourceUsage.Default;
-			depthDesc.Width = form.ClientSize.Width;
-			depthDesc.Height = form.ClientSize.Height;
+			depthDesc.Width = Form.ClientSize.Width;
+			depthDesc.Height = Form.ClientSize.Height;
 
 			depthBuffer = new Texture2D(device, depthDesc);
 			depthStencilView = new DepthStencilView(device, depthBuffer);
@@ -160,7 +158,7 @@ namespace Ankh
 		public override void ClearBackBuffer(Color4 color)
 		{
 			context.OutputMerger.SetTargets(depthStencilView, renderTargetView);
-			context.Rasterizer.SetViewport(0, 0, form.ClientSize.Width, form.ClientSize.Height, 0, 1);
+			context.Rasterizer.SetViewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0, 1);
 			context.ClearRenderTargetView(renderTargetView, color);
 			context.ClearDepthStencilView(
 					depthStencilView,

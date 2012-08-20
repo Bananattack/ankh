@@ -4,10 +4,10 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows.Forms;
 
-namespace Defenetron
+namespace Ankh
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct Message
+    internal struct Message
     {
         public IntPtr hWnd;
         public uint msg;
@@ -17,12 +17,12 @@ namespace Defenetron
         public Point p;
     }
 
-    class MessageLoop
+    public class MessageLoop
     {
         [SuppressUnmanagedCodeSecurity]
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool PeekMessage(
+        private static extern bool PeekMessage(
             out Message msg, 
             IntPtr hWnd, 
             uint msgFilterMin, 
@@ -46,6 +46,11 @@ namespace Defenetron
             Application.Idle += ApplicationIdle;
             Application.Run(form);
         }
+
+	public void Run(Ankh.Game game)
+	{
+		Run(game.Device.Form, game.DoRender);
+	}
 
         void ApplicationIdle(object sender, EventArgs e)
         {

@@ -50,6 +50,12 @@ namespace Ankh
 
 	public abstract class GraphicsDeviceBase
 	{
+		internal readonly Form Form;
+		
+		internal GraphicsDeviceBase(Form f) {
+			Form = f;
+		}
+		
 		public abstract void ResetDevice();
 		public abstract void ClearBackBuffer(Color4 color);
 		public abstract ISpriteBatch CreateSpriteBatch();

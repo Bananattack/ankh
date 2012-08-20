@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="src\DefenetronGame.cs" />
     <Compile Include="src\InputHandler.cs" />
-    <Compile Include="src\MessageLoop.cs" />
     <Compile Include="src\Main.cs">
       <SubType>Form</SubType>
     </Compile>

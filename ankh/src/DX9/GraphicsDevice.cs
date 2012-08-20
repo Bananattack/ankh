@@ -13,7 +13,7 @@ namespace Ankh.DX9
 	public class GraphicsDevice : GraphicsDeviceBase
 	{
 		public Direct3D d3d;
-		public Device Device;
+		internal readonly Device Device;
 
 		public override ITexture CreateTexture(int width, int height)
 		{
@@ -38,6 +38,7 @@ namespace Ankh.DX9
 		}
 
 		public GraphicsDevice(Form form)
+			: base(form)
 		{
 			d3d = new Direct3D();
 
