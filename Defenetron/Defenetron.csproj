@@ -66,10 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\DefenetronGame.cs" />
-    <Compile Include="src\InputHandler.cs" />
-    <Compile Include="src\Main.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="src\Main.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
