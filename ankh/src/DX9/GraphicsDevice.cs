@@ -69,7 +69,7 @@ namespace Ankh.DX9
 		}
 		public override void ClearBackBuffer(Color4 color)
 		{
-			Device.Clear(ClearFlags.Target, color, 1.0f, 0);
+			Device.Clear(ClearFlags.Target, color.ToSharpDX(), 1.0f, 0);
 		}
 
 		Dictionary<int, VertexBuffer> VertexBuffers = new Dictionary<int, VertexBuffer>();

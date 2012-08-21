@@ -159,7 +159,7 @@ namespace Ankh
 		{
 			context.OutputMerger.SetTargets(depthStencilView, renderTargetView);
 			context.Rasterizer.SetViewport(0, 0, Form.ClientSize.Width, Form.ClientSize.Height, 0, 1);
-			context.ClearRenderTargetView(renderTargetView, color);
+			context.ClearRenderTargetView(renderTargetView, color.ToSharpDX());
 			context.ClearDepthStencilView(
 					depthStencilView,
 					DepthStencilClearFlags.Depth | DepthStencilClearFlags.Stencil, 1, 0);

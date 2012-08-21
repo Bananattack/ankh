@@ -20,8 +20,8 @@ namespace Ankh
 
 		public static readonly Vector3 Zero = new Vector3(0, 0, 0);
 
-#if true
-		internal static Vector3 New(SharpDX.Vector3 v)
+		#region SharpDX specific
+		internal static Vector3 FromSharpDX(SharpDX.Vector3 v)
 		{
 			return new Vector3(v.X, v.Y, v.Z);
 		}
@@ -30,6 +30,6 @@ namespace Ankh
 		{
 			return new SharpDX.Vector3 { X = X, Y = Y, Z = Z };
 		}
-#endif
+		#endregion
 	}
 }

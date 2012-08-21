@@ -22,11 +22,11 @@ namespace Defenetron
 
 		private void TestDX9(Ankh.DX9.GraphicsDevice device)
 		{
-			device.ClearBackBuffer(Device.CreateColor(123.0f / 255.0f, 160.0f / 255.0f, 183.0f / 255.0f, 1));
+			device.ClearBackBuffer(new Color4(123.0f / 255.0f, 160.0f / 255.0f, 183.0f / 255.0f, 1));
 			using (var sb = device.CreateSpriteBatch())
 			{
-				sb.Draw(tex, Ankh.Vector3.Zero);
-				sb.Draw(tex, new Ankh.Vector3(32, 32, 0));
+				sb.Draw(tex, Vector3.Zero);
+				sb.Draw(tex, new Vector3(32, 32, 0));
 			}
 		}
 

@@ -81,18 +81,5 @@ namespace Ankh
 		internal virtual void BeginScene() { }
 		internal virtual void EndScene() { }
 		public abstract void Present();
-
-		//do we really need these? i dont think i want to view them as device resources -zero
-		public Color4 CreateColor(float r, float g, float b, float a = 1.0f)
-		{
-			return new Color4(r, g, b, a);
-		}
-
-		//do we really need these? i dont think i want to view them as device resources -zero
-		public Vector4 CreateVector(float x, float y, float z, float w)
-		{
-			return new Vector4(x, y, z, w);
-		}
 	}
-
 }
