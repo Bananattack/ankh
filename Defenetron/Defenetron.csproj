@@ -91,15 +91,19 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ankh\ankh.csproj">
-      <Project>{1ED10225-7FEF-4646-B58D-39FA35C73A61}</Project>
-      <Name>ankh</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="content\32bpp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ankh\Ankh.Core\Ankh.Core.csproj">
+      <Project>{D9AE380B-45DC-4708-BC68-E1EB2689FA1F}</Project>
+      <Name>Ankh.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ankh\Ankh.Platform.Win32\Ankh.Platform.Win32.csproj">
+      <Project>{3C5E011D-FAFC-4B85-B79A-C44D15364783}</Project>
+      <Name>Ankh.Platform.Win32</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

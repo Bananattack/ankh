@@ -3,7 +3,7 @@ using Ankh;
 
 namespace Defenetron
 {
-	public class DefenetronGame : Ankh.Game
+	public class DefenetronGame : Ankh.Platform.Win32.Win32Game
 	{
 		public DefenetronGame(GraphicsDeviceBase d)
 			: base(d)
@@ -13,14 +13,14 @@ namespace Defenetron
 
 		public override void Render()
 		{
-			var d = Device as Ankh.DX9.GraphicsDevice;
+			var d = Device as Ankh.Platform.Win32.DX9.GraphicsDevice;
 			if (d != null)
 			{
 				TestDX9(d);
 			}
 		}
 
-		private void TestDX9(Ankh.DX9.GraphicsDevice device)
+		private void TestDX9(Ankh.Platform.Win32.DX9.GraphicsDevice device)
 		{
 			device.ClearBackBuffer(new Color4(123.0f / 255.0f, 160.0f / 255.0f, 183.0f / 255.0f, 1));
 			using (var sb = device.CreateSpriteBatch())
