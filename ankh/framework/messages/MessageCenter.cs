@@ -34,11 +34,15 @@ namespace ankh.framework.messages
         }
 
         //---------------------------------------------------------------------
-        public static void Register(Action<T> handler)
+        internal static void Register(Action<T> handler)
         {
             handlers.Add(new WeakReference<Action<T>>(handler));
         }
 
+
+        //---------------------------------------------------------------------
+        // Private members
+        //---------------------------------------------------------------------
         static List<WeakReference<Action<T>>> handlers = new List<WeakReference<Action<T>>>();
         static List<WeakReference<Action<T>>> invalidHandlers = new List<WeakReference<Action<T>>>();
     }
