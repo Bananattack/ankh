@@ -14,10 +14,10 @@ namespace ankh.framework.messages
             
             foreach(var maybeHandler in handlers)
             {
-                Action<T> listener;
-                if (maybeHandler.TryGetTarget(out listener))
+                if (maybeHandler.IsAlive)
                 {
-                    listener.Invoke(topic);
+					Action<T> listener = maybeHandler.Target as Action<T>;
+					listener.Invoke(topic);
                 }
                 else
                 {
@@ -36,14 +36,14 @@ namespace ankh.framework.messages
         //---------------------------------------------------------------------
         internal static void Register(Action<T> handler)
         {
-            handlers.Add(new WeakReference<Action<T>>(handler));
+			handlers.Add(new WeakReference(handler));
         }
 
 
         //---------------------------------------------------------------------
         // Private members
         //---------------------------------------------------------------------
-        static List<WeakReference<Action<T>>> handlers = new List<WeakReference<Action<T>>>();
-        static List<WeakReference<Action<T>>> invalidHandlers = new List<WeakReference<Action<T>>>();
+        static List<WeakReference> handlers = new List<WeakReference>();
+        static List<WeakReference> invalidHandlers = new List<WeakReference>();
     }
 }
