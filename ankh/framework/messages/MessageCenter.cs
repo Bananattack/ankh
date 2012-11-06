@@ -12,16 +12,16 @@ namespace ankh.framework.messages
         public static void Publish(T topic)
         {
             
-            foreach(var maybeListener in handlers)
+            foreach(var maybeHandler in handlers)
             {
                 Action<T> listener;
-                if (maybeListener.TryGetTarget(out listener))
+                if (maybeHandler.TryGetTarget(out listener))
                 {
                     listener.Invoke(topic);
                 }
                 else
                 {
-                    invalidHandlers.Add(maybeListener);
+                    invalidHandlers.Add(maybeHandler);
                 }
             }
 
