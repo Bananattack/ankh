@@ -10,6 +10,31 @@ namespace ankh.framework.messages.test
     [TestFixture]
     class MessageCenterTest
     {
+        [Test]
+        public void TopicCanBePublished()
+        {
+            var listener = new ListenerThing();
+            
+            var topic = new SomeTopic();
+            topic.data = 500;
+            MessageCenter<SomeTopic>.Publish(topic);
+
+            Assert.AreEqual(listener.data, topic.data);
+        }
+
+        [Test]
+        public void ListenersDieGracefully()
+        {
+            ListenerThing listener = new ListenerThing();
+            listener = null;
+
+            GC.Collect();
+
+            Assert.DoesNotThrow(() => MessageCenter<SomeTopic>.Publish(new SomeTopic()));
+        }
+
+
+
         class SomeTopic : Topic
         {
             public int data;
@@ -24,18 +49,6 @@ namespace ankh.framework.messages.test
 
             public int data = 0;
             Listener<SomeTopic> someTopicListener;
-        }
-
-        [Test]
-        public void TopicCanBePublished()
-        {
-            var listener = new ListenerThing();
-            
-            var topic = new SomeTopic();
-            topic.data = 500;
-            MessageCenter<SomeTopic>.Publish(topic);
-
-            Assert.AreEqual(listener.data, topic.data);
         }
     }
 }
