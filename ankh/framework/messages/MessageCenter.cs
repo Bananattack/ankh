@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ankh.framework.messages
 {
-    class MessageCenter<T> where T : Topic
+    static class MessageCenter<T> where T : Topic
     {
         //---------------------------------------------------------------------
         public static void Publish(T topic)
         {
+            
             foreach(var maybeListener in handlers)
             {
                 Action<T> listener;
@@ -18,7 +19,18 @@ namespace ankh.framework.messages
                 {
                     listener.Invoke(topic);
                 }
+                else
+                {
+                    invalidHandlers.Add(maybeListener);
+                }
             }
+
+            //--Clean up invalids-----------------------
+            foreach (var invalidHandler in invalidHandlers)
+            {
+                handlers.Remove(invalidHandler);
+            }
+            invalidHandlers.Clear();
         }
 
         //---------------------------------------------------------------------
@@ -27,8 +39,7 @@ namespace ankh.framework.messages
             handlers.Add(new WeakReference<Action<T>>(handler));
         }
 
-
-
         static List<WeakReference<Action<T>>> handlers = new List<WeakReference<Action<T>>>();
+        static List<WeakReference<Action<T>>> invalidHandlers = new List<WeakReference<Action<T>>>();
     }
 }
