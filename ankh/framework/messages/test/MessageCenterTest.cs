@@ -33,6 +33,18 @@ namespace ankh.framework.messages.test
             Assert.DoesNotThrow(() => MessageCenter<SomeTopic>.Publish(new SomeTopic()));
         }
 
+        [Test]
+        public void OldListenersDoNotFire()
+        {
+            int x = 0;
+            var listener = new Listener<SomeTopic>(topic => x++);
+            listener = null; //No more listener references
+
+            MessageCenter<SomeTopic>.Publish(new SomeTopic());
+
+            Assert.AreEqual(0, x);
+        }
+
 
 
         class SomeTopic : Topic
