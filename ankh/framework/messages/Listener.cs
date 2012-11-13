@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace ankh.framework.messages
 {
-    class Listener<T> where T : Topic
+    class Listener<T> : IDisposable where T : Topic
     {
-        public Listener(Action<T> handler)
+        private Action<T> callback;
+
+        public Listener(Action<T> callback)
         {
-            MessageCenter<T>.Register(handler);
+            this.callback = callback;
+            MessageCenter<T>.Register(callback);
+        }
+
+        public void Dispose()
+        {
+            MessageCenter<T>.Unregister(callback);
         }
     }
 }

@@ -10,6 +10,12 @@ namespace ankh.framework.messages.test
     [TestFixture]
     class MessageCenterTest
     {
+        [SetUp]
+        public void ClearListeners()
+        {
+            MessageCenter<SomeTopic>.Clear();
+        }
+
         [Test]
         public void TopicCanBePublished()
         {
@@ -22,30 +28,35 @@ namespace ankh.framework.messages.test
             Assert.AreEqual(listener.data, topic.data);
         }
 
-        [Test]
-        public void ListenersDieGracefully()
+        [Test, Ignore]
+        public void GCedListenersShouldThrow()
         {
-            ListenerThing listener = new ListenerThing();
-            listener = null;
+            //leak this
+            new Listener<SomeTopic>((x) => { Assert.Fail("This shouldn't have been called"); });
 
+            //collect the leaked thing
             GC.Collect();
+            GC.WaitForPendingFinalizers();
 
-            Assert.DoesNotThrow(() => MessageCenter<SomeTopic>.Publish(new SomeTopic()));
+            Assert.Throws<NullReferenceException>(() => MessageCenter<SomeTopic>.Publish(new SomeTopic()));
         }
 
         [Test]
-        public void OldListenersDoNotFire()
+        public void DisposedListenersShouldNotBeCalled()
         {
-            int x = 0;
-            var listener = new Listener<SomeTopic>(topic => x++);
-            listener = null; //No more listener references
+            int calls = 0;
+            var sideEffectsListener = new Listener<SomeTopic>((x) => calls++);
 
             MessageCenter<SomeTopic>.Publish(new SomeTopic());
 
-            Assert.AreEqual(0, x);
+            sideEffectsListener.Dispose();
+
+            MessageCenter<SomeTopic>.Publish(new SomeTopic());
+
+            Assert.AreEqual(1, calls);
         }
 
-
+        
 
         class SomeTopic : Topic
         {

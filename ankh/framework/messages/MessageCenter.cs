@@ -11,7 +11,6 @@ namespace ankh.framework.messages
         //---------------------------------------------------------------------
         public static void Publish(T topic)
         {
-            
             foreach(var maybeHandler in handlers)
             {
                 if (maybeHandler.IsAlive)
@@ -21,16 +20,15 @@ namespace ankh.framework.messages
                 }
                 else
                 {
-                    invalidHandlers.Add(maybeHandler);
+                    throw new NullReferenceException("Found a null listener. Did you forget to dispose it?");
                 }
             }
+        }
 
-            //--Clean up invalids-----------------------
-            foreach (var invalidHandler in invalidHandlers)
-            {
-                handlers.Remove(invalidHandler);
-            }
-            invalidHandlers.Clear();
+        //---------------------------------------------------------------------
+        public static void Clear()
+        {
+            handlers.Clear();
         }
 
         //---------------------------------------------------------------------
@@ -39,11 +37,21 @@ namespace ankh.framework.messages
 			handlers.Add(new WeakReference(handler));
         }
 
+        //---------------------------------------------------------------------
+        internal static void Unregister(Action<T> handler)
+        {
+            handlers.RemoveAll(weakRef =>
+            {
+                return (weakRef.Target == handler);
+            });
+            
+        }
 
         //---------------------------------------------------------------------
         // Private members
         //---------------------------------------------------------------------
         static List<WeakReference> handlers = new List<WeakReference>();
-        static List<WeakReference> invalidHandlers = new List<WeakReference>();
+
+        
     }
 }
