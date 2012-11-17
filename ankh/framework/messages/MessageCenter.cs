@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 
 namespace ankh.framework.messages
 {
-    static class MessageCenter<T> where T : ITopic
+    static class MessageCenter
     {
         //---------------------------------------------------------------------
-        public static void Publish(T topic)
+        public static void Publish<T>(T topic) where T : ITopic
         {
-            foreach(var maybeHandler in handlers)
+            List<WeakReference> typeHandlers;
+            if(handlers.TryGetValue(typeof(T), out typeHandlers))
             {
-                if (maybeHandler.IsAlive)
+                foreach(var maybeHandler in typeHandlers)
                 {
-					Action<T> listener = maybeHandler.Target as Action<T>;
-					listener.Invoke(topic);
-                }
-                else
-                {
-                    throw new NullReferenceException("Found a null listener. Did you forget to dispose it?");
+                    if (maybeHandler.IsAlive)
+                    {
+					    Action<T> listener = maybeHandler.Target as Action<T>;
+					    listener.Invoke(topic);
+                    }
+                    else
+                    {
+                        throw new NullReferenceException("Found a null listener. Did you forget to dispose it?");
+                    }
                 }
             }
         }
@@ -32,15 +36,24 @@ namespace ankh.framework.messages
         }
 
         //---------------------------------------------------------------------
-        internal static void Register(Action<T> handler)
+        internal static void Register<T>(Action<T> handler) where T : ITopic
         {
-			handlers.Add(new WeakReference(handler));
+            List<WeakReference> typeHandlers;
+            if (handlers.TryGetValue(typeof(T), out typeHandlers))
+            {
+                typeHandlers.Add(new WeakReference(handler));
+            }
+            else
+            {
+                typeHandlers = new List<WeakReference> { new WeakReference(handler) };
+                handlers.Add(typeof(T), typeHandlers);
+            }
         }
 
         //---------------------------------------------------------------------
-        internal static void Unregister(Action<T> handler)
+        internal static void Unregister<T>(Action<T> handler) where T : ITopic
         {
-            handlers.RemoveAll(weakRef =>
+            handlers[typeof(T)].RemoveAll(weakRef =>
             {
                 return (weakRef.Target == handler);
             });
@@ -50,8 +63,6 @@ namespace ankh.framework.messages
         //---------------------------------------------------------------------
         // Private members
         //---------------------------------------------------------------------
-        static List<WeakReference> handlers = new List<WeakReference>();
-
-        
+        static Dictionary<Type, List<WeakReference>> handlers = new Dictionary<Type, List<WeakReference>>();
     }
 }

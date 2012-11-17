@@ -13,7 +13,7 @@ namespace ankh.framework.messages.test
         [SetUp]
         public void ClearListeners()
         {
-            MessageCenter<SomeTopic>.Clear();
+            MessageCenter.Clear();
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace ankh.framework.messages.test
             
             var topic = new SomeTopic();
             topic.data = 500;
-            MessageCenter<SomeTopic>.Publish(topic);
+            MessageCenter.Publish(topic);
 
             Assert.AreEqual(listener.data, topic.data);
         }
@@ -35,20 +35,33 @@ namespace ankh.framework.messages.test
             int calls = 0;
             var sideEffectsListener = new Listener<SomeTopic>((x) => calls++);
 
-            MessageCenter<SomeTopic>.Publish(new SomeTopic());
+            MessageCenter.Publish(new SomeTopic());
 
             sideEffectsListener.Dispose();
 
-            MessageCenter<SomeTopic>.Publish(new SomeTopic());
+            MessageCenter.Publish(new SomeTopic());
 
             Assert.AreEqual(1, calls);
         }
 
-        
+        [Test]
+        public void OnlyListenersForSameTopicFire()
+        {
+            int calls = 0;
+            var someTopicListener = new Listener<SomeTopic>((x) => calls++);
+            var otherTopicListener = new Listener<OtherTopic>((x) => calls++);
+
+            MessageCenter.Publish(new SomeTopic());
+
+            Assert.AreEqual(1, calls);
+        }
 
         class SomeTopic : ITopic
         {
             public int data;
+        }
+        class OtherTopic : ITopic
+        {
         }
 
         class ListenerThing

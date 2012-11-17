@@ -13,12 +13,12 @@ namespace ankh.framework.messages
         public Listener(Action<T> callback)
         {
             this.callback = callback;
-            MessageCenter<T>.Register(callback);
+            MessageCenter.Register(callback);
         }
 
         public void Dispose()
         {
-            MessageCenter<T>.Unregister(callback);
+            MessageCenter.Unregister(callback);
         }
     }
 }
