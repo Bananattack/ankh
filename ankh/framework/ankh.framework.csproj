@@ -45,7 +45,7 @@
     <Compile Include="messages\Listener.cs" />
     <Compile Include="messages\MessageCenter.cs" />
     <Compile Include="messages\test\MessageCenterTest.cs" />
-    <Compile Include="messages\Topic.cs" />
+    <Compile Include="messages\ITopic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

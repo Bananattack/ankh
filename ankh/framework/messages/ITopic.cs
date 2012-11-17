@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ankh.framework.messages
 {
-    public class Topic
+    public interface ITopic
     {
     }
 }

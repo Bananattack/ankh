@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ankh.framework.messages
 {
-    static class MessageCenter<T> where T : Topic
+    static class MessageCenter<T> where T : ITopic
     {
         //---------------------------------------------------------------------
         public static void Publish(T topic)

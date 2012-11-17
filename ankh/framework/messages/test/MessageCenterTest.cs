@@ -46,7 +46,7 @@ namespace ankh.framework.messages.test
 
         
 
-        class SomeTopic : Topic
+        class SomeTopic : ITopic
         {
             public int data;
         }

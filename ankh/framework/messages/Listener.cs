@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ankh.framework.messages
 {
-    class Listener<T> : IDisposable where T : Topic
+    class Listener<T> : IDisposable where T : ITopic
     {
         private Action<T> callback;
 
