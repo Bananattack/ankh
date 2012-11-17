@@ -28,18 +28,6 @@ namespace ankh.framework.messages.test
             Assert.AreEqual(listener.data, topic.data);
         }
 
-        [Test, Ignore]
-        public void GCedListenersShouldThrow()
-        {
-            //leak this
-            new Listener<SomeTopic>((x) => { Assert.Fail("This shouldn't have been called"); });
-
-            //collect the leaked thing
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-
-            Assert.Throws<NullReferenceException>(() => MessageCenter<SomeTopic>.Publish(new SomeTopic()));
-        }
 
         [Test]
         public void DisposedListenersShouldNotBeCalled()
