@@ -72,11 +72,12 @@ namespace ankh.framework.messages.test
         {
             Assert.DoesNotThrow(() => MessageCenter.Publish(new SomeTopic()));
         }
-        class SomeTopic : ITopic
+
+        struct SomeTopic : ITopic
         {
             public int data;
         }
-        class OtherTopic : ITopic
+        struct OtherTopic : ITopic
         {
         }
 
