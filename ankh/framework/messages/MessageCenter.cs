@@ -18,8 +18,8 @@ namespace ankh.framework.messages
                 {
                     if (maybeHandler.IsAlive)
                     {
-					    Action<T> listener = maybeHandler.Target as Action<T>;
-					    listener.Invoke(topic);
+                        Action<T> listener = maybeHandler.Target as Action<T>;
+                        listener.Invoke(topic);
                     }
                     else
                     {
