@@ -56,6 +56,22 @@ namespace ankh.framework.messages.test
             Assert.AreEqual(1, calls);
         }
 
+        [Test]
+        public void MultipleListenersForSameTopicAllFire()
+        {
+            int calls = 0;
+            var someTopicListener = new Listener<SomeTopic>((x) => calls++);
+            var anotherOne = new Listener<SomeTopic>((x) => calls++);
+
+            MessageCenter.Publish(new SomeTopic());
+            Assert.AreEqual(2, calls);
+        }
+
+        [Test]
+        public void NoListeners()
+        {
+            Assert.DoesNotThrow(() => MessageCenter.Publish(new SomeTopic()));
+        }
         class SomeTopic : ITopic
         {
             public int data;
