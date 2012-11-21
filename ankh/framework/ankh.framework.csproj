@@ -7,8 +7,8 @@
     <ProjectGuid>{98977D8C-251E-43E2-A926-21D3DBAF02EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ankh.framework</RootNamespace>
-    <AssemblyName>framework</AssemblyName>
+    <RootNamespace>Ankh.Framework</RootNamespace>
+    <AssemblyName>Ankh.Framework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
