@@ -42,10 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="messages\Listener.cs" />
-    <Compile Include="messages\MessageCenter.cs" />
-    <Compile Include="messages\test\MessageCenterTest.cs" />
-    <Compile Include="messages\ITopic.cs" />
+    <Compile Include="Messages\Listener.cs" />
+    <Compile Include="Messages\MessageCenter.cs" />
+    <Compile Include="Messages\Test\MessageCenterTest.cs" />
+    <Compile Include="Messages\ITopic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

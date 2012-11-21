@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ankh.framework.messages.test
+namespace Ankh.Framework.Messages.Test
 {
     [TestFixture]
     class MessageCenterTest

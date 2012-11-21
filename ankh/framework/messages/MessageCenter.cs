@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ankh.framework.messages
+namespace Ankh.Framework.Messages
 {
     static class MessageCenter
     {
