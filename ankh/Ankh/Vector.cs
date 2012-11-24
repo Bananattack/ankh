@@ -51,4 +51,18 @@ namespace Ankh
 		//}
 		//#endregion
 	}
+
+    public struct Vector2
+    {
+        public float X;
+        public float Y;
+
+        public Vector2(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
+
+        public static readonly Vector2 Zero = new Vector2(0, 0);
+    }
 }
