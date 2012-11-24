@@ -19,11 +19,11 @@ namespace Ankh.Platform.Win32.DX9
         public void Draw(ITexture tex, Vector3 position)
         {
             sprite.Draw(
-                ((Texture)tex).tex,
-                /* srcRectRef */ new SharpDX.Rectangle(0, 0, 16, 16),
-                /* centerRef  */ new SharpDX.Vector3(0, 0, 0),
-                /* posRef     */ position.ToSharpDX(),
-                /* color      */ SharpDX.Colors.White
+                textureRef:  ((Texture)tex).tex,
+                srcRectRef:  new SharpDX.Rectangle(0, 0, (int)tex.Dimensions.X, (int)tex.Dimensions.Y),
+                centerRef:   new SharpDX.Vector3(0, 0, 0),
+                positionRef: position.ToSharpDX(),
+                color:       SharpDX.Colors.White
             );
         }
 

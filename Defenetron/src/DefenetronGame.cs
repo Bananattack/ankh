@@ -36,7 +36,7 @@ namespace Defenetron
 
 		public override void Setup()
 		{
-			tex = Device.CreateTexture("content/32bpp.png");
+			tex = Device.CreateTexture("content/ship.png");
 		}
 	}
 }
