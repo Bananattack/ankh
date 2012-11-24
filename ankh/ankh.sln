@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ankh.Platform.Win32", "ankh.Platform.Win32\ankh.Platform.Win32.csproj", "{3C5E011D-FAFC-4B85-B79A-C44D15364783}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ankh.Platform.Win32", "ankh.Platform.Win32\Ankh.Platform.Win32.csproj", "{3C5E011D-FAFC-4B85-B79A-C44D15364783}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ankh.framework", "framework\ankh.framework.csproj", "{98977D8C-251E-43E2-A926-21D3DBAF02EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ankh.Framework", "framework\Ankh.Framework.csproj", "{98977D8C-251E-43E2-A926-21D3DBAF02EB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ankh", "Ankh\Ankh.csproj", "{D9AE380B-45DC-4708-BC68-E1EB2689FA1F}"
 EndProject
