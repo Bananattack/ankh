@@ -9,11 +9,14 @@ namespace Ankh.Platform.Win32.DX9
 	public class Texture : ITexture
 	{
 		GraphicsDevice dev;
+        Vector2 dimensions;
+
 		public SharpDX.Direct3D9.Texture tex;
 		public Texture(GraphicsDevice dev, int width, int height)
 		{
 			this.dev = dev;
 			tex = new SharpDX.Direct3D9.Texture(dev.Device, width, height, 1, D3D9.Usage.Dynamic, D3D9.Format.A8R8G8B8, D3D9.Pool.Default);
+            dimensions = new Vector2(width, height);
 		}
 		public void WriteAll(int[] data)
 		{
@@ -21,5 +24,13 @@ namespace Ankh.Platform.Win32.DX9
 			System.Runtime.InteropServices.Marshal.Copy(data, 0, dr.DataPointer, data.Length);
 			tex.UnlockRectangle(0);
 		}
+
+        public Vector2 Dimensions
+        {
+            get
+            {
+                return dimensions;
+            }
+        }
 	}
 }

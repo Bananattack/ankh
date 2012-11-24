@@ -14,6 +14,7 @@ namespace Ankh
 	public interface ITexture
 	{
 		void WriteAll(int[] data);
+        Vector2 Dimensions { get; }
 	}
 
 	public abstract class GraphicsDeviceBase
