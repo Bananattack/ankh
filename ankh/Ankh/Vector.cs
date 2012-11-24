@@ -37,19 +37,6 @@ namespace Ankh
         }
 
         public static readonly Vector3 Zero = new Vector3(0, 0, 0);
-
-        //do these with extension methods 
-        //#region SharpDX specific
-        //internal static Vector3 FromSharpDX(SharpDX.Vector3 v)
-        //{
-        //  return new Vector3(v.X, v.Y, v.Z);
-        //}
-
-        //internal SharpDX.Vector3 ToSharpDX()
-        //{
-        //  return new SharpDX.Vector3 { X = X, Y = Y, Z = Z };
-        //}
-        //#endregion
     }
 
     public struct Vector2

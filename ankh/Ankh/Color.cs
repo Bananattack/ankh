@@ -16,17 +16,5 @@ namespace Ankh
 			B = b;
 			A = a;
 		}
-
-		//#region SharpDX specific
-		//internal static Color4 FromSharpDX(SharpDX.Color4 c)
-		//{
-		//  return new Color4(c.Red, c.Green, c.Blue, c.Alpha);
-		//}
-
-		//internal SharpDX.Color4 ToSharpDX()
-		//{
-		//  return new SharpDX.Color4(Red, Green, Blue, Alpha);
-		//}
-		//#endregion
 	}
 }
