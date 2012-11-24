@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace Ankh.Platform.Win32
 {
-	internal class Win32PlatformApi : Ankh.Core.PlatformApi.IFilesystem
+	internal class Win32PlatformApi : Ankh.PlatformApi.IFilesystem
 	{
 		static Win32PlatformApi()
 		{
-			Ankh.Core.PlatformApi.Filesystem = new Win32PlatformApi();
+			Ankh.PlatformApi.Filesystem = new Win32PlatformApi();
 		}
 		public static void Initialize() { }
 
-		Stream Ankh.Core.PlatformApi.IFilesystem.OpenRead(string path)
+		Stream Ankh.PlatformApi.IFilesystem.OpenRead(string path)
 		{
 			return File.OpenRead(path);
 		}

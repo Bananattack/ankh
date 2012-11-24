@@ -59,6 +59,8 @@ namespace Ankh.Platform.Win32.DX11
 		{
 			DX11GraphicsDevice dev;
 			Texture2D tex;
+            Vector2 dimensions;
+
 			public MyTexture(DX11GraphicsDevice dev, int width, int height)
 			{
 				this.dev = dev;
@@ -73,12 +75,22 @@ namespace Ankh.Platform.Win32.DX11
                         SampleDescription = new SampleDescription { Count = 1 }
 					};
 				tex = new Texture2D(dev.device, descr);
+
+                dimensions = new Vector2(width, height);
 			}
 
 			public void WriteAll(int[] data)
 			{
 				dev.context.UpdateSubresource(data, tex);
 			}
+
+            public Vector2 Dimensions
+            {
+                get
+                {
+                    return dimensions;
+                }
+            }
 		}
 
 		public override ITexture CreateTexture(int width, int height)
