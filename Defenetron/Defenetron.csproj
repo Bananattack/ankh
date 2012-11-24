@@ -94,6 +94,9 @@
     <Content Include="content\32bpp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="content\ship.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Ankh\Ankh.Platform.Win32\Ankh.Platform.Win32.csproj">
