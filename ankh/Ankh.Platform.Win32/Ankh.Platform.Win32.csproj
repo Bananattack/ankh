@@ -65,9 +65,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ankh.core\ankh.core.csproj">
+    <ProjectReference Include="..\ankh.core\ankh.csproj">
       <Project>{D9AE380B-45DC-4708-BC68-E1EB2689FA1F}</Project>
-      <Name>ankh.core</Name>
+      <Name>ankh</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

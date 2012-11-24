@@ -3,7 +3,7 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Ankh.Core
+namespace Ankh
 {
 	public static class PlatformApi
 	{

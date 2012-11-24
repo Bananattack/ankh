@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ankh.core\ankh.core.csproj">
+    <ProjectReference Include="..\ankh.core\ankh.csproj">
       <Project>{d9ae380b-45dc-4708-bc68-e1eb2689fa1f}</Project>
-      <Name>ankh.core</Name>
+      <Name>ankh</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
